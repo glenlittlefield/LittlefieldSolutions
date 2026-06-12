@@ -717,7 +717,19 @@ details p {
   margin: 0;
   color: var(--gray-600);
   font-size: 0.92rem;
+  transition: color 0.2s ease, font-weight 0.2s ease;
 }
+
+.form-status.success {
+  color: #10b981; /* emerald green */
+  font-weight: 500;
+}
+
+.form-status.error {
+  color: #ef4444; /* coral red */
+  font-weight: 500;
+}
+
 
 .template-page .industry-hero {
   padding: 136px 0 82px;

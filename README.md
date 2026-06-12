@@ -53,23 +53,21 @@ Important places to update:
 - Hero copy
 - Contact section
 - Footer copyright
-- Contact form mailto email in `script.js`
+- Contact form Web3Forms Access Key in `script.js`
 
-The current form sends to:
+The current form sends email notifications using Web3Forms with your Access Key:
 
 ```text
-LittlefieldSolutions2026@outlook.com
+5776d154-027a-4e0c-95df-a2b89c89264c
 ```
 
-Replace that email in `script.js` with the preferred business email address.
+To change the target email or get a new key, register at [web3forms.com](https://web3forms.com/) and replace the `WEB3FORMS_ACCESS_KEY` constant in `script.js`.
 
 ## Receiving Project Requests
 
-The contact forms use `mailto:` because GitHub Pages is static and does not run backend code.
+The contact forms submit details to **Web3Forms** using a background API request (`fetch`). Submissions are processed instantly, and you will receive an email containing the form data.
 
-When a visitor submits the form, their email app opens with the project details filled in. You receive the request only after they send that email.
-
-For a more reliable embedded form inbox on a static site, connect the form to a static form service such as Formspree, Basin, Getform, or Netlify Forms. Those services provide a form endpoint that can collect submissions without building your own backend.
+As a safety net, if the Web3Forms API fails (e.g. network timeout or invalid key), the form automatically falls back to a `mailto:` link, which opens the visitor's local mail client with the details pre-filled. This ensures you never miss a lead.
 
 ## Image Credits
 
