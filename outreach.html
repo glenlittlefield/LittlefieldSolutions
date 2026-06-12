@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outreach Email Dashboard | Littlefield Web Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #071b34;
+      --navy-soft: #0d2b4f;
+      --navy-light: #16365f;
+      --blue: #1769e0;
+      --blue-hover: #1153b8;
+      --blue-light: #e7f0ff;
+      --cyan: #28a7d8;
+      --white: #ffffff;
+      --gray-50: #f7f9fc;
+      --gray-100: #eef3f8;
+      --gray-200: #dce4ee;
+      --gray-300: #c7d4e3;
+      --gray-600: #5e7188;
+      --gray-800: #26384d;
+      --green: #10b981;
+      --orange: #f59e0b;
+      --radius: 8px;
+      --shadow: 0 10px 30px rgba(7, 27, 52, 0.08);
+      --transition: all 0.2s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", Arial, sans-serif;
+      color: var(--gray-800);
+      background-color: var(--gray-50);
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: var(--navy);
+      color: var(--white);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--navy-soft);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--white);
+    }
+
+    .brand-mark {
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      color: var(--white);
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      font-weight: 800;
+      font-size: 1.25rem;
+    }
+
+    .brand strong {
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      display: block;
+    }
+
+    .brand small {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--cyan);
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .stats {
+      display: flex;
+      gap: 16px;
+    }
+
+    .stat-badge {
+      background-color: var(--navy-soft);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .stat-badge span {
+      color: var(--cyan);
+      font-weight: 700;
+    }
+
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      height: calc(100vh - 70px);
+      overflow: hidden;
+    }
+
+    /* Left panel */
+    .sidebar {
+      background-color: var(--white);
+      border-right: 1px solid var(--gray-200);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .section-box {
+      padding: 20px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .section-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gray-600);
+      margin-bottom: 12px;
+    }
+
+    .tabs {
+      display: flex;
+      background-color: var(--gray-100);
+      border-radius: var(--radius);
+      padding: 4px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      border: none;
+      background: none;
+      padding: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: calc(var(--radius) - 2px);
+      cursor: pointer;
+      color: var(--gray-600);
+      transition: var(--transition);
+    }
+
+    .tab-btn.active {
+      background-color: var(--white);
+      color: var(--navy);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    textarea.import-area {
+      width: 100%;
+      height: 120px;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 0.8rem;
+      border: 1px solid var(--gray-300);
+      border-radius: var(--radius);
+      resize: vertical;
+      margin-bottom: 12px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    button.btn {
+      flex: 1;
+      border: none;
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background-color: var(--blue);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--blue-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--gray-100);
+      color: var(--gray-800);
+      border: 1px solid var(--gray-200);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--gray-200);
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--gray-300);
+      border-radius: var(--radius);
+      font-size: 0.85rem;
+    }
+
+    .leads-list {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .lead-item {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--gray-100);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .lead-item:hover {
+      background-color: var(--gray-50);
+    }
+
+    .lead-item.active {
+      background-color: var(--blue-light);
+      border-left: 4px solid var(--blue);
+      padding-left: 16px;
+    }
+
+    .lead-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .lead-name {
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--navy);
+    }
+
+    .lead-meta {
+      font-size: 0.78rem;
+      color: var(--gray-600);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .lead-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .badge-draft {
+      background-color: var(--gray-100);
+      color: var(--gray-600);
+    }
+
+    .badge-sent {
+      background-color: #d1fae5;
+      color: var(--green);
+    }
+
+    /* Content Area */
+    .content-area {
+      background-color: var(--gray-50);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .editor-container {
+      flex: 1;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      overflow-y: auto;
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .editor-card {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--gray-200);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-row label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gray-600);
+    }
+
+    .form-row input, .form-row textarea {
+      padding: 12px;
+      border: 1px solid var(--gray-300);
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--navy);
+      transition: var(--transition);
+    }
+
+    .form-row input:focus, .form-row textarea:focus {
+      outline: none;
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(23, 105, 224, 0.1);
+    }
+
+    .form-row textarea {
+      font-family: 'Consolas', 'Courier New', Courier, monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      resize: vertical;
+      min-height: 300px;
+      flex: 1;
+    }
+
+    .action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .editor-placeholder {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: var(--gray-600);
+      gap: 12px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .editor-placeholder svg {
+      width: 64px;
+      height: 64px;
+      color: var(--gray-300);
+    }
+
+    .editor-placeholder h2 {
+      font-size: 1.25rem;
+      color: var(--navy);
+    }
+
+    .editor-placeholder p {
+      max-width: 400px;
+      font-size: 0.9rem;
+    }
+
+    .badge-industry {
+      background-color: var(--blue-light);
+      color: var(--blue);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .badge-location {
+      background-color: var(--gray-100);
+      color: var(--gray-800);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="brand">
+      <div class="brand-mark">L</div>
+      <div>
+        <strong>Littlefield</strong>
+        <small>Outreach Dashboard</small>
+      </div>
+    </a>
+    <div class="stats">
+      <div class="stat-badge">Total: <span id="stat-total">0</span></div>
+      <div class="stat-badge">Pending: <span id="stat-pending">0</span></div>
+      <div class="stat-badge">Sent: <span id="stat-sent" style="color: var(--green);">0</span></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Left panel (Sidebar) -->
+    <div class="sidebar">
+      <div class="section-box">
+        <div class="section-title">Import Leads</div>
+        <div class="tabs">
+          <button class="tab-btn active" id="tab-csv" onclick="switchTab('csv')">CSV Format</button>
+          <button class="tab-btn" id="tab-json" onclick="switchTab('json')">JSON Format</button>
+        </div>
+        <textarea class="import-area" id="import-data" placeholder="Paste CSV data here..."></textarea>
+        <div class="btn-group">
+          <button class="btn btn-secondary" onclick="loadSampleData()">Sample Data</button>
+          <button class="btn btn-primary" onclick="parseImportData()">Parse Leads</button>
+        </div>
+      </div>
+
+      <div class="section-box search-box">
+        <input type="text" id="search-input" placeholder="Filter leads by name or location..." oninput="filterLeads()">
+      </div>
+
+      <div class="leads-list" id="leads-container">
+        <!-- Lead items will be injected here -->
+      </div>
+    </div>
+
+    <!-- Right panel (Content Area / Editor) -->
+    <div class="content-area" id="content-container">
+      <div class="editor-placeholder" id="placeholder-view">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 19v-8.93a2 2 0 01.89-1.664l8-5.333a2 2 0 012.22 0l8 5.333A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76"></path>
+        </svg>
+        <h2>Select a Lead</h2>
+        <p>Import a list of businesses on the left and select one to generate and edit a custom outreach email.</p>
+      </div>
+
+      <div class="editor-container" id="editor-view" style="display: none;">
+        <div class="editor-card">
+          <div class="lead-header" style="border-bottom: 1px solid var(--gray-100); padding-bottom: 12px; margin-bottom: 4px;">
+            <div>
+              <h2 id="edit-business-name" style="font-size: 1.25rem; color: var(--navy); margin-bottom: 4px;">Business Name</h2>
+              <div class="lead-meta">
+                <span class="badge-industry" id="edit-industry">Industry</span>
+                <span class="badge-location" id="edit-location">Location</span>
+              </div>
+            </div>
+            <div id="edit-status-container">
+              <span class="lead-badge badge-draft" id="edit-status-badge">Draft</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label for="edit-to">Recipient Email</label>
+            <input type="email" id="edit-to">
+          </div>
+
+          <div class="form-row">
+            <label for="edit-subject">Email Subject</label>
+            <input type="text" id="edit-subject">
+          </div>
+
+          <div class="form-row">
+            <label for="edit-body">Email Body</label>
+            <textarea id="edit-body" rows="12"></textarea>
+          </div>
+
+          <div class="action-bar">
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-secondary" onclick="copyText('edit-subject', 'Subject copied!')">Copy Subject</button>
+              <button class="btn btn-secondary" onclick="copyText('edit-body', 'Body copied!')">Copy Body</button>
+            </div>
+            <button class="btn btn-primary" onclick="sendActiveEmail()" style="font-size: 0.95rem; padding: 12px 24px; background-color: var(--green);">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 18px; height: 18px;">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"></path>
+              </svg>
+              Open in Mail Client
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let currentFormat = 'csv';
+    let leads = [];
+    let activeLeadIndex = null;
+
+    const sampleCSV = `business_name,email,location,industry
+Brite Brothers,customerservice@britebrothers.com,"Adairsville, GA","Equipment Rental"
+Cool Mountain Air LLC,info@coolmountainairllc.com,"Adairsville, GA","HVAC"
+HomeTown True Value,info@hometowntruevalue.net,"Adairsville, GA","Hardware Store"
+Local Septic Service,service@localsepticga.com,"Cartersville, GA","Septic Services"
+Styles Auto Care,info@stylesautocare.com,"Cartersville, GA","Auto Repair"
+Sharp Excavation LLC,bsharp@sharpexcavation.com,"Cartersville, GA","Excavation"
+Avenue Autos LLC,avenueautosllc13@gmail.com,"Cartersville, GA","Auto Dealer"
+Barnsley Resort,info@barnsleyresort.com,"Adairsville, GA","Resort"
+LG Hausys America,windows@lghausys.com,"Adairsville, GA","Manufacturing"`;
+
+    const sampleJSON = `[
+  {
+    "business_name": "Brite Brothers",
+    "email": "customerservice@britebrothers.com",
+    "location": "Adairsville, GA",
+    "industry": "Equipment Rental"
+  },
+  {
+    "business_name": "Cool Mountain Air LLC",
+    "email": "info@coolmountainairllc.com",
+    "location": "Adairsville, GA",
+    "industry": "HVAC"
+  },
+  {
+    "business_name": "Etowah River Plumbing",
+    "email": "contact@etowahriverplumbing.com",
+    "location": "Cartersville, GA",
+    "industry": "Plumbing"
+  }
+]`;
+
+    window.onload = function() {
+      switchTab('csv');
+    };
+
+    function switchTab(format) {
+      currentFormat = format;
+      document.getElementById('tab-csv').classList.toggle('active', format === 'csv');
+      document.getElementById('tab-json').classList.toggle('active', format === 'json');
+      
+      const txt = document.getElementById('import-data');
+      if (format === 'csv') {
+        txt.placeholder = 'Paste CSV data here...';
+      } else {
+        txt.placeholder = 'Paste JSON array here...';
+      }
+    }
+
+    function loadSampleData() {
+      const txt = document.getElementById('import-data');
+      if (currentFormat === 'csv') {
+        txt.value = sampleCSV;
+      } else {
+        txt.value = sampleJSON;
+      }
+    }
+
+    // Helper function to parse CSV properly (handling commas in quotes)
+    function parseCSV(text) {
+      const lines = [];
+      let row = [""];
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        let c = text[i];
+        let next = text[i+1];
+
+        if (c === '"') {
+          if (inQuotes && next === '"') {
+            row[row.length - 1] += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (c === ',' && !inQuotes) {
+          row.push('');
+        } else if ((c === '\r' || c === '\n') && !inQuotes) {
+          if (c === '\r' && next === '\n') { i++; }
+          lines.push(row);
+          row = [''];
+        } else {
+          row[row.length - 1] += c;
+        }
+      }
+      if (row.length > 1 || row[0] !== '') {
+        lines.push(row);
+      }
+      return lines;
+    }
+
+    function parseImportData() {
+      const text = document.getElementById('import-data').value.trim();
+      if (!text) {
+        alert('Please paste some data to import.');
+        return;
+      }
+
+      let parsedLeads = [];
+
+      try {
+        if (currentFormat === 'json') {
+          const arr = JSON.parse(text);
+          if (!Array.isArray(arr)) throw new Error('Data must be a JSON array of objects.');
+          parsedLeads = arr.map(item => ({
+            business_name: item.business_name || item.name || 'Unnamed Business',
+            email: item.email || '',
+            location: item.location || 'Georgia',
+            industry: item.industry || 'Business Services',
+            status: 'draft',
+            customSubject: null,
+            customBody: null
+          }));
+        } else {
+          // CSV Parser
+          const rows = parseCSV(text);
+          if (rows.length < 2) throw new Error('CSV must have a header row and at least one data row.');
+          
+          const headers = rows[0].map(h => h.trim().toLowerCase());
+          
+          const nameIdx = headers.findIndex(h => h.includes('name') || h.includes('business'));
+          const emailIdx = headers.findIndex(h => h.includes('email') || h.includes('mail'));
+          const locIdx = headers.findIndex(h => h.includes('location') || h.includes('city') || h.includes('area'));
+          const indIdx = headers.findIndex(h => h.includes('industry') || h.includes('type') || h.includes('sector'));
+
+          if (nameIdx === -1 || emailIdx === -1) {
+            throw new Error('CSV headers must include fields representing "business_name" and "email".');
+          }
+
+          for (let i = 1; i < rows.length; i++) {
+            const row = rows[i];
+            if (row.length < 2 || !row[nameIdx]) continue;
+            
+            parsedLeads.push({
+              business_name: row[nameIdx].trim(),
+              email: row[emailIdx] ? row[emailIdx].trim() : '',
+              location: locIdx !== -1 && row[locIdx] ? row[locIdx].trim() : 'Georgia',
+              industry: indIdx !== -1 && row[indIdx] ? row[indIdx].trim() : 'Business Services',
+              status: 'draft',
+              customSubject: null,
+              customBody: null
+            });
+          }
+        }
+
+        leads = parsedLeads;
+        activeLeadIndex = null;
+        updateStats();
+        renderLeadsList();
+        
+        // Hide editor and show placeholder
+        document.getElementById('editor-view').style.display = 'none';
+        document.getElementById('placeholder-view').style.display = 'flex';
+
+      } catch (err) {
+        alert('Error parsing data: ' + err.message);
+      }
+    }
+
+    function generateEmailContent(lead) {
+      const industry = (lead.industry || '').toLowerCase();
+      const name = lead.business_name || '';
+      const location = lead.location || 'your area';
+
+      let subject = '';
+      let body = '';
+
+      if (industry.includes('hvac') || industry.includes('heating') || industry.includes('air conditioning') || industry.includes('comfort')) {
+        subject = `Quick website question for ${name}`;
+        body = `Hi team at ${name},
+
+I was looking at local businesses in ${location} and noticed your HVAC business.
+
+With peak seasonal demands bringing in lots of calls, having a modern website that makes it easy for customers to request AC or heating service, book maintenance, and see your service area is crucial.
+
+I built a live demo website template specifically for local HVAC companies to help them win more customers. You can see the design here:
+https://glenlittlefield.github.io/LittlefieldSolutions/hvac-template.html
+
+I run Littlefield Web Solutions (based right here in Georgia), and I build professional sites like this for local service businesses starting at just $150 to $250. 
+
+If you're interested in upgrading your online presence, or if you need a brand new site to get more estimate requests, I'd love to help.
+
+Would you be open to a quick chat next week?
+
+Best regards,
+
+Glen Littlefield
+Littlefield Web Solutions
+https://glenlittlefield.github.io/LittlefieldSolutions/
+LittlefieldSolutions2026@outlook.com`;
+      } else if (industry.includes('plumb') || industry.includes('drain') || industry.includes('leak') || industry.includes('sewer')) {
+        subject = `New website demo for ${name}`;
+        body = `Hi team at ${name},
+
+I was checking out local businesses in ${location} and came across your plumbing services.
+
+When customers have a leak or a clogged drain, they usually search on their phones and call the first plumbing business that looks professional and trustworthy. 
+
+I recently designed a modern plumbing demo website built specifically to capture emergency calls and service requests. You can view the live demo here:
+https://glenlittlefield.github.io/LittlefieldSolutions/plumbing-template.html
+
+I build and launch professional sites like this for local service companies starting at just $150 to $250, with fast turnaround times.
+
+If you'd like to modernize your current site or launch a new one to stand out in ${location}, I'd love to partner with you.
+
+Are you available for a brief call next week to see how we can help?
+
+Best regards,
+
+Glen Littlefield
+Littlefield Web Solutions
+https://glenlittlefield.github.io/LittlefieldSolutions/
+LittlefieldSolutions2026@outlook.com`;
+      } else if (industry.includes('physical therapy') || industry.includes('clinic') || industry.includes('health') || industry.includes('wellness') || industry.includes('chiro')) {
+        subject = `Website feedback / redesign for ${name}`;
+        body = `Hi team at ${name},
+
+I was looking at health and wellness providers in ${location} and wanted to reach out to ${name}.
+
+For local clinics, having a polished, mobile-friendly website is key to building trust with new patients, letting them book appointments easily, and showcasing your services.
+
+I designed a clean, modern physical therapy clinic demo website to show how easy it can be for patients to navigate and request appointments. Take a look here:
+https://glenlittlefield.github.io/LittlefieldSolutions/physical-therapy-template.html
+
+I build and redesign websites for local clinics starting at $250. Everything is mobile-optimized and designed to rank well in local searches.
+
+If you are open to modernizing your online presence to make it easier for patients to find and book with you, I'd love to help.
+
+Let me know if you have time for a quick 5-minute call next week.
+
+Best regards,
+
+Glen Littlefield
+Littlefield Web Solutions
+https://glenlittlefield.github.io/LittlefieldSolutions/
+LittlefieldSolutions2026@outlook.com`;
+      } else {
+        // General Template
+        subject = `Website design proposal for ${name}`;
+        body = `Hi team at ${name},
+
+I was looking at local businesses in ${location} and wanted to reach out to you at ${name}.
+
+For businesses in the ${lead.industry || 'local services'} sector, your website is often the very first impression a customer has of your business. A slow, outdated, or hard-to-use site can cost you valuable customers.
+
+I run Littlefield Web Solutions (based in Northwest Georgia). I build and redesign clean, fast, and mobile-optimized websites for local businesses starting at just $150 to $250.
+
+You can check out my pricing, services, and live work templates here:
+https://glenlittlefield.github.io/LittlefieldSolutions/
+
+Whether you need a brand-new website to launch your business or want to modernize your current site so it works perfectly on phones, I can help you get it online quickly.
+
+If you're interested, I'd love to chat and see what you need. 
+
+Would you be open to a quick call next week?
+
+Best regards,
+
+Glen Littlefield
+Littlefield Web Solutions
+https://glenlittlefield.github.io/LittlefieldSolutions/
+LittlefieldSolutions2026@outlook.com`;
+      }
+
+      return { subject, body };
+    }
+
+    function updateStats() {
+      const total = leads.length;
+      const sent = leads.filter(l => l.status === 'sent').length;
+      const pending = total - sent;
+
+      document.getElementById('stat-total').textContent = total;
+      document.getElementById('stat-pending').textContent = pending;
+      document.getElementById('stat-sent').textContent = sent;
+    }
+
+    function renderLeadsList() {
+      const container = document.getElementById('leads-container');
+      container.innerHTML = '';
+      
+      const filterText = document.getElementById('search-input').value.toLowerCase();
+
+      leads.forEach((lead, index) => {
+        if (filterText && 
+            !lead.business_name.toLowerCase().includes(filterText) && 
+            !lead.location.toLowerCase().includes(filterText) && 
+            !lead.industry.toLowerCase().includes(filterText)) {
+          return;
+        }
+
+        const item = document.createElement('div');
+        item.className = `lead-item ${index === activeLeadIndex ? 'active' : ''}`;
+        item.onclick = () => selectLead(index);
+
+        const badgeClass = lead.status === 'sent' ? 'badge-sent' : 'badge-draft';
+        const badgeText = lead.status === 'sent' ? 'Sent' : 'Draft';
+
+        item.innerHTML = `
+          <div class="lead-header">
+            <span class="lead-name">${lead.business_name}</span>
+            <span class="lead-badge ${badgeClass}">${badgeText}</span>
+          </div>
+          <div class="lead-meta">
+            <span class="badge-industry">${lead.industry}</span>
+            <span class="badge-location">${lead.location}</span>
+          </div>
+        `;
+
+        container.appendChild(item);
+      });
+    }
+
+    function filterLeads() {
+      renderLeadsList();
+    }
+
+    function selectLead(index) {
+      // Save current input changes first if a lead was already active
+      if (activeLeadIndex !== null) {
+        saveCurrentChanges();
+      }
+
+      activeLeadIndex = index;
+      renderLeadsList();
+
+      const lead = leads[index];
+      
+      document.getElementById('placeholder-view').style.display = 'none';
+      document.getElementById('editor-view').style.display = 'block';
+
+      document.getElementById('edit-business-name').textContent = lead.business_name;
+      document.getElementById('edit-industry').textContent = lead.industry;
+      document.getElementById('edit-location').textContent = lead.location;
+      document.getElementById('edit-to').value = lead.email;
+
+      // Status badge
+      const statusBadge = document.getElementById('edit-status-badge');
+      statusBadge.className = `lead-badge ${lead.status === 'sent' ? 'badge-sent' : 'badge-draft'}`;
+      statusBadge.textContent = lead.status === 'sent' ? 'Sent' : 'Draft';
+
+      // Load generated or customized content
+      if (lead.customSubject !== null) {
+        document.getElementById('edit-subject').value = lead.customSubject;
+      } else {
+        const generated = generateEmailContent(lead);
+        document.getElementById('edit-subject').value = generated.subject;
+      }
+
+      if (lead.customBody !== null) {
+        document.getElementById('edit-body').value = lead.customBody;
+      } else {
+        const generated = generateEmailContent(lead);
+        document.getElementById('edit-body').value = generated.body;
+      }
+    }
+
+    function saveCurrentChanges() {
+      if (activeLeadIndex === null) return;
+      
+      leads[activeLeadIndex].email = document.getElementById('edit-to').value;
+      leads[activeLeadIndex].customSubject = document.getElementById('edit-subject').value;
+      leads[activeLeadIndex].customBody = document.getElementById('edit-body').value;
+    }
+
+    function sendActiveEmail() {
+      if (activeLeadIndex === null) return;
+
+      saveCurrentChanges();
+      const lead = leads[activeLeadIndex];
+
+      const to = lead.email;
+      const subject = encodeURIComponent(lead.customSubject || generateEmailContent(lead).subject);
+      const body = encodeURIComponent(lead.customBody || generateEmailContent(lead).body);
+
+      // Open mailto link
+      window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+
+      // Mark as sent
+      lead.status = 'sent';
+      updateStats();
+      renderLeadsList();
+
+      // Update active badge in editor
+      const statusBadge = document.getElementById('edit-status-badge');
+      statusBadge.className = 'lead-badge badge-sent';
+      statusBadge.textContent = 'Sent';
+
+      // Automatically move to the next lead after a short delay
+      setTimeout(() => {
+        if (activeLeadIndex !== null && activeLeadIndex < leads.length - 1) {
+          selectLead(activeLeadIndex + 1);
+        }
+      }, 1000);
+    }
+
+    function copyText(elementId, successMsg) {
+      const el = document.getElementById(elementId);
+      el.select();
+      el.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(el.value)
+        .then(() => {
+          alert(successMsg);
+        })
+        .catch(err => {
+          console.error('Failed to copy: ', err);
+        });
+    }
+  </script>
+</body>
+</html>
